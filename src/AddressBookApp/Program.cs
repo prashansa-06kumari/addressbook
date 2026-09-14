@@ -11,7 +11,8 @@ while (running)
     Console.WriteLine("\nAddress Book Menu");
     Console.WriteLine("1. Add Contact");
     Console.WriteLine("2. Edit Contact");
-    Console.WriteLine("3. Show All Contacts");
+    Console.WriteLine("3. Delete Contact");
+    Console.WriteLine("4. Show All Contacts");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -25,6 +26,9 @@ while (running)
             EditExistingContact();
             break;
         case "3":
+            DeleteExistingContact();
+            break;
+        case "4":
             Console.WriteLine("\n--- All Contacts ---");
             addressBook.PrintAll();
             break;
@@ -80,4 +84,14 @@ void EditExistingContact()
     Console.Write("Enter last name to edit: ");
     var lastName = Console.ReadLine() ?? "";
     addressBook.EditContact(firstName, lastName);
+}
+
+void DeleteExistingContact()
+{
+    Console.WriteLine("\n--- Delete Contact ---");
+    Console.Write("Enter first name to delete: ");
+    var firstName = Console.ReadLine() ?? "";
+    Console.Write("Enter last name to delete: ");
+    var lastName = Console.ReadLine() ?? "";
+    addressBook.DeleteContact(firstName, lastName);
 }

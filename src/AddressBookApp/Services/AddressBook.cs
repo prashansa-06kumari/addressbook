@@ -49,6 +49,22 @@ public class AddressBook
         Console.WriteLine("Contact updated.");
     }
 
+    public void DeleteContact(string firstName, string lastName)
+    {
+        var contact = contacts.FirstOrDefault(
+            c => c.FirstName == firstName && c.LastName == lastName
+        );
+
+        if (contact == null)
+        {
+            Console.WriteLine("Contact not found.");
+            return;
+        }
+
+        contacts.Remove(contact);
+        Console.WriteLine("Contact deleted successfully.");
+    }
+
     private static string PromptAndValidateName(string label, string currentValue)
     {
         while (true)
