@@ -1,127 +1,69 @@
 using AddressBookApp.Exceptions;
 using AddressBookApp.Models;
+using AddressBookApp.Services;
 using AddressBookApp.Validation;
 
-Console.WriteLine("=== UC2: Contact Validation Demo ===\n");
+var addressBook = new AddressBook();
+bool running = true;
 
-Console.WriteLine("--- Test 1: Valid Contact ---");
-try
+while (running)
 {
-    var validContact = new Contact("John", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(validContact);
-    Console.WriteLine($"SUCCESS: Contact accepted -> {validContact}");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"FAILURE: {ex.Message}");
-}
+    Console.WriteLine("\nAddress Book Menu");
+    Console.WriteLine("1. Add Contact");
+    Console.WriteLine("2. Show All Contacts");
+    Console.WriteLine("0. Exit");
+    Console.Write("Enter your choice: ");
+    var choice = Console.ReadLine();
 
-Console.WriteLine("\n--- Test 2: Invalid First Name (lowercase start) ---");
-try
-{
-    var badFirstName = new Contact("john", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badFirstName);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 3: Invalid First Name (too short) ---");
-try
-{
-    var shortFirstName = new Contact("Jo", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(shortFirstName);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
+    switch (choice)
+    {
+        case "1":
+            AddNewContact();
+            break;
+        case "2":
+            Console.WriteLine("\n--- All Contacts ---");
+            addressBook.PrintAll();
+            break;
+        case "0":
+            running = false;
+            Console.WriteLine("Exiting...");
+            break;
+        default:
+            Console.WriteLine("Invalid choice. Please try again.");
+            break;
+    }
 }
 
-Console.WriteLine("\n--- Test 4: Invalid Last Name ---");
-try
+void AddNewContact()
 {
-    var badLastName = new Contact("John", "doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badLastName);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
+    try
+    {
+        Console.WriteLine("\n--- Add New Contact ---");
+        Console.Write("First name: ");
+        var firstName = Console.ReadLine() ?? "";
+        Console.Write("Last name: ");
+        var lastName = Console.ReadLine() ?? "";
+        Console.Write("Address: ");
+        var address = Console.ReadLine() ?? "";
+        Console.Write("City: ");
+        var city = Console.ReadLine() ?? "";
+        Console.Write("State: ");
+        var state = Console.ReadLine() ?? "";
+        Console.Write("Zip: ");
+        var zip = Console.ReadLine() ?? "";
+        Console.Write("Phone number: ");
+        var phoneNumber = Console.ReadLine() ?? "";
+        Console.Write("Email: ");
+        var email = Console.ReadLine() ?? "";
 
-Console.WriteLine("\n--- Test 5: Invalid Address (too short) ---");
-try
-{
-    var badAddress = new Contact("John", "Doe", "12", "Pune", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badAddress);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
+        var contact = new Contact(firstName, lastName, address, city, state, zip, phoneNumber, email);
+        ContactValidator.Validate(contact);
+        addressBook.AddContact(contact);
+        Console.WriteLine("Contact added successfully.");
+    }
+    catch (InvalidContactException ex)
+    {
+        Console.WriteLine($"Validation error: {ex.Message}");
+        Console.WriteLine("Contact was not added. Please try again.");
+    }
 }
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 6: Invalid City (too short) ---");
-try
-{
-    var badCity = new Contact("John", "Doe", "12 MG Road", "Pun", "Maharashtra", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badCity);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 7: Invalid State (too short) ---");
-try
-{
-    var badState = new Contact("John", "Doe", "12 MG Road", "Pune", "Mah", "411001", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badState);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 8: Invalid Zip (not 6 digits) ---");
-try
-{
-    var badZip = new Contact("John", "Doe", "12 MG Road", "Pune", "Maharashtra", "41100", "9876543210", "john.doe@mail.com");
-    ContactValidator.Validate(badZip);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 9: Invalid Phone (not 10 digits) ---");
-try
-{
-    var badPhone = new Contact("John", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "987654321", "john.doe@mail.com");
-    ContactValidator.Validate(badPhone);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n--- Test 10: Invalid Email ---");
-try
-{
-    var badEmail = new Contact("John", "Doe", "12 MG Road", "Pune", "Maharashtra", "411001", "9876543210", "john.doe(at)mail.com");
-    ContactValidator.Validate(badEmail);
-    Console.WriteLine("FAILURE: Should have thrown InvalidContactException");
-}
-catch (InvalidContactException ex)
-{
-    Console.WriteLine($"SUCCESS: Caught exception -> {ex.Message}");
-}
-
-Console.WriteLine("\n=== All UC2 Tests Completed ===");
