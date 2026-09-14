@@ -10,7 +10,8 @@ while (running)
 {
     Console.WriteLine("\nAddress Book Menu");
     Console.WriteLine("1. Add Contact");
-    Console.WriteLine("2. Show All Contacts");
+    Console.WriteLine("2. Edit Contact");
+    Console.WriteLine("3. Show All Contacts");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -21,6 +22,9 @@ while (running)
             AddNewContact();
             break;
         case "2":
+            EditExistingContact();
+            break;
+        case "3":
             Console.WriteLine("\n--- All Contacts ---");
             addressBook.PrintAll();
             break;
@@ -66,4 +70,14 @@ void AddNewContact()
         Console.WriteLine($"Validation error: {ex.Message}");
         Console.WriteLine("Contact was not added. Please try again.");
     }
+}
+
+void EditExistingContact()
+{
+    Console.WriteLine("\n--- Edit Contact ---");
+    Console.Write("Enter first name to edit: ");
+    var firstName = Console.ReadLine() ?? "";
+    Console.Write("Enter last name to edit: ");
+    var lastName = Console.ReadLine() ?? "";
+    addressBook.EditContact(firstName, lastName);
 }
