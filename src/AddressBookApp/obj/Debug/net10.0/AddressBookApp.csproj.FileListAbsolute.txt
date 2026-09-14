@@ -12,3 +12,4 @@ e:\addressbook\src\AddressBookApp\obj\Debug\net10.0\refint\AddressBookApp.dll
 e:\addressbook\src\AddressBookApp\obj\Debug\net10.0\AddressBookApp.pdb
 e:\addressbook\src\AddressBookApp\obj\Debug\net10.0\AddressBookApp.genruntimeconfig.cache
 e:\addressbook\src\AddressBookApp\obj\Debug\net10.0\ref\AddressBookApp.dll
+e:\addressbook\src\AddressBookApp\obj\Debug\net10.0\AddressBookApp.sourcelink.json
