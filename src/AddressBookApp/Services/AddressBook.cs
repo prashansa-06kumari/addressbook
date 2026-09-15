@@ -15,6 +15,19 @@ public class AddressBook
         contacts.Add(contact);
     }
 
+    public void SortContacts()
+    {
+        contacts.Sort((a, b) =>
+        {
+            int result = string.Compare(a.FirstName, b.FirstName, StringComparison.OrdinalIgnoreCase);
+            if (result == 0)
+            {
+                result = string.Compare(a.LastName, b.LastName, StringComparison.OrdinalIgnoreCase);
+            }
+            return result;
+        });
+    }
+
     public void PrintAll()
     {
         foreach (var contact in contacts)
