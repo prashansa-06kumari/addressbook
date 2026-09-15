@@ -19,6 +19,7 @@ while (running)
     Console.WriteLine("6. Sort Contacts");
     Console.WriteLine("7. Search by City");
     Console.WriteLine("8. Search by State");
+    Console.WriteLine("9. View by City/State");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -51,6 +52,9 @@ while (running)
             break;
         case "8":
             SearchByState();
+            break;
+        case "9":
+            addressBookMain.ViewByCityOrState();
             break;
         case "0":
             running = false;

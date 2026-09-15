@@ -25,4 +25,31 @@ public class AddressBookMain
     {
         return books.SelectMany(b => b.SearchByState(state));
     }
+
+    public void ViewByCityOrState()
+    {
+        var allContacts = books.SelectMany(b => b.Contacts).ToList();
+
+        Console.WriteLine("\n--- By City ---");
+        foreach (var group in allContacts.GroupBy(c => c.City))
+        {
+            Console.WriteLine($"{group.Key}:");
+            foreach (var contact in group)
+            {
+                Console.WriteLine($" {contact.FirstName} {contact.LastName}");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("--- By State ---");
+        foreach (var group in allContacts.GroupBy(c => c.State))
+        {
+            Console.WriteLine($"{group.Key}:");
+            foreach (var contact in group)
+            {
+                Console.WriteLine($" {contact.FirstName} {contact.LastName}");
+            }
+            Console.WriteLine();
+        }
+    }
 }

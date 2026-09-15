@@ -38,6 +38,31 @@ public class AddressBook
         return contacts.Where(c => c.State.Equals(state, StringComparison.OrdinalIgnoreCase));
     }
 
+    public void ViewByCityOrState()
+    {
+        Console.WriteLine("\n--- By City ---");
+        foreach (var group in contacts.GroupBy(c => c.City))
+        {
+            Console.WriteLine($"{group.Key}:");
+            foreach (var contact in group)
+            {
+                Console.WriteLine($" {contact.FirstName} {contact.LastName}");
+            }
+            Console.WriteLine();
+        }
+
+        Console.WriteLine("--- By State ---");
+        foreach (var group in contacts.GroupBy(c => c.State))
+        {
+            Console.WriteLine($"{group.Key}:");
+            foreach (var contact in group)
+            {
+                Console.WriteLine($" {contact.FirstName} {contact.LastName}");
+            }
+            Console.WriteLine();
+        }
+    }
+
     public void PrintAll()
     {
         foreach (var contact in contacts)
