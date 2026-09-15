@@ -28,6 +28,16 @@ public class AddressBook
         });
     }
 
+    public IEnumerable<Contact> SearchByCity(string city)
+    {
+        return contacts.Where(c => c.City.Equals(city, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public IEnumerable<Contact> SearchByState(string state)
+    {
+        return contacts.Where(c => c.State.Equals(state, StringComparison.OrdinalIgnoreCase));
+    }
+
     public void PrintAll()
     {
         foreach (var contact in contacts)
