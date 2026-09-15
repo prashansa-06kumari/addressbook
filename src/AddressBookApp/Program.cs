@@ -17,6 +17,8 @@ while (running)
     Console.WriteLine("4. Show All Contacts");
     Console.WriteLine("5. Total Contact Count");
     Console.WriteLine("6. Sort Contacts");
+    Console.WriteLine("7. Search by City");
+    Console.WriteLine("8. Search by State");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -43,6 +45,12 @@ while (running)
             addressBook.SortContacts();
             Console.WriteLine("\n--- Contacts sorted by name ---");
             addressBook.PrintAll();
+            break;
+        case "7":
+            SearchByCity();
+            break;
+        case "8":
+            SearchByState();
             break;
         case "0":
             running = false;
@@ -106,4 +114,40 @@ void DeleteExistingContact()
     Console.Write("Enter last name to delete: ");
     var lastName = Console.ReadLine() ?? "";
     addressBook.DeleteContact(firstName, lastName);
+}
+
+void SearchByCity()
+{
+    Console.WriteLine("\n--- Search by City ---");
+    Console.Write("Enter city to search: ");
+    var city = Console.ReadLine() ?? "";
+    var matches = addressBookMain.SearchByCity(city).ToList();
+    if (matches.Count == 0)
+    {
+        Console.WriteLine("No contacts found.");
+        return;
+    }
+    Console.WriteLine($"\nFound {matches.Count} contact(s):");
+    foreach (var contact in matches)
+    {
+        Console.WriteLine(contact.ToString());
+    }
+}
+
+void SearchByState()
+{
+    Console.WriteLine("\n--- Search by State ---");
+    Console.Write("Enter state to search: ");
+    var state = Console.ReadLine() ?? "";
+    var matches = addressBookMain.SearchByState(state).ToList();
+    if (matches.Count == 0)
+    {
+        Console.WriteLine("No contacts found.");
+        return;
+    }
+    Console.WriteLine($"\nFound {matches.Count} contact(s):");
+    foreach (var contact in matches)
+    {
+        Console.WriteLine(contact.ToString());
+    }
 }
