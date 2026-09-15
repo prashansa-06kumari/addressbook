@@ -26,6 +26,20 @@ public class AddressBookMain
         return books.SelectMany(b => b.SearchByState(state));
     }
 
+    public Dictionary<string, int> GetCountByCity()
+    {
+        return books.SelectMany(b => b.Contacts)
+                    .GroupBy(c => c.City)
+                    .ToDictionary(g => g.Key, g => g.Count());
+    }
+
+    public Dictionary<string, int> GetCountByState()
+    {
+        return books.SelectMany(b => b.Contacts)
+                    .GroupBy(c => c.State)
+                    .ToDictionary(g => g.Key, g => g.Count());
+    }
+
     public void ViewByCityOrState()
     {
         var allContacts = books.SelectMany(b => b.Contacts).ToList();

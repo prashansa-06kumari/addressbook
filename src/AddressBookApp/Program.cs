@@ -20,6 +20,7 @@ while (running)
     Console.WriteLine("7. Search by City");
     Console.WriteLine("8. Search by State");
     Console.WriteLine("9. View by City/State");
+    Console.WriteLine("10. Count by City/State");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -55,6 +56,9 @@ while (running)
             break;
         case "9":
             addressBookMain.ViewByCityOrState();
+            break;
+        case "10":
+            CountByCityOrState();
             break;
         case "0":
             running = false;
@@ -153,5 +157,47 @@ void SearchByState()
     foreach (var contact in matches)
     {
         Console.WriteLine(contact.ToString());
+    }
+}
+
+void CountByCityOrState()
+{
+    Console.WriteLine("\n--- Count by City/State ---");
+    Console.WriteLine("1. Count by City");
+    Console.WriteLine("2. Count by State");
+    Console.Write("Enter your choice: ");
+    var subChoice = Console.ReadLine();
+
+    switch (subChoice)
+    {
+        case "1":
+            var cityCounts = addressBookMain.GetCountByCity();
+            if (cityCounts.Count == 0)
+            {
+                Console.WriteLine("No contacts found.");
+                return;
+            }
+            Console.WriteLine("\nContact count by city:");
+            foreach (var kvp in cityCounts)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+            break;
+        case "2":
+            var stateCounts = addressBookMain.GetCountByState();
+            if (stateCounts.Count == 0)
+            {
+                Console.WriteLine("No contacts found.");
+                return;
+            }
+            Console.WriteLine("\nContact count by state:");
+            foreach (var kvp in stateCounts)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+            break;
+        default:
+            Console.WriteLine("Invalid choice.");
+            break;
     }
 }
