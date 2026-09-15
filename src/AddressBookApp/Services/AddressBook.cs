@@ -38,6 +38,18 @@ public class AddressBook
         return contacts.Where(c => c.State.Equals(state, StringComparison.OrdinalIgnoreCase));
     }
 
+    public Dictionary<string, int> GetCountByCity()
+    {
+        return contacts.GroupBy(c => c.City)
+                       .ToDictionary(g => g.Key, g => g.Count());
+    }
+
+    public Dictionary<string, int> GetCountByState()
+    {
+        return contacts.GroupBy(c => c.State)
+                       .ToDictionary(g => g.Key, g => g.Count());
+    }
+
     public void ViewByCityOrState()
     {
         Console.WriteLine("\n--- By City ---");
