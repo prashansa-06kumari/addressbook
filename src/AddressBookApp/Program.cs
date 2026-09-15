@@ -21,6 +21,7 @@ while (running)
     Console.WriteLine("8. Search by State");
     Console.WriteLine("9. View by City/State");
     Console.WriteLine("10. Count by City/State");
+    Console.WriteLine("11. Sort Contacts by City/State/Zip");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -59,6 +60,11 @@ while (running)
             break;
         case "10":
             CountByCityOrState();
+            break;
+        case "11":
+            addressBook.SortContactsByLocation();
+            Console.WriteLine("\n--- Contacts sorted by City/State/Zip ---");
+            addressBook.PrintAll();
             break;
         case "0":
             running = false;

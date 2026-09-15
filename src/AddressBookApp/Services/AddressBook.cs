@@ -28,6 +28,23 @@ public class AddressBook
         });
     }
 
+    public void SortContactsByLocation()
+    {
+        contacts.Sort((a, b) =>
+        {
+            int result = string.Compare(a.City, b.City, StringComparison.OrdinalIgnoreCase);
+            if (result == 0)
+            {
+                result = string.Compare(a.State, b.State, StringComparison.OrdinalIgnoreCase);
+            }
+            if (result == 0)
+            {
+                result = string.Compare(a.Zip, b.Zip, StringComparison.Ordinal);
+            }
+            return result;
+        });
+    }
+
     public IEnumerable<Contact> SearchByCity(string city)
     {
         return contacts.Where(c => c.City.Equals(city, StringComparison.OrdinalIgnoreCase));
