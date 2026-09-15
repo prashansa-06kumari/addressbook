@@ -3,7 +3,9 @@ using AddressBookApp.Models;
 using AddressBookApp.Services;
 using AddressBookApp.Validation;
 
+var addressBookMain = new AddressBookMain();
 var addressBook = new AddressBook();
+addressBookMain.AddAddressBook(addressBook);
 bool running = true;
 
 while (running)
@@ -13,6 +15,8 @@ while (running)
     Console.WriteLine("2. Edit Contact");
     Console.WriteLine("3. Delete Contact");
     Console.WriteLine("4. Show All Contacts");
+    Console.WriteLine("5. Total Contact Count");
+    Console.WriteLine("6. Sort Contacts");
     Console.WriteLine("0. Exit");
     Console.Write("Enter your choice: ");
     var choice = Console.ReadLine();
@@ -30,6 +34,14 @@ while (running)
             break;
         case "4":
             Console.WriteLine("\n--- All Contacts ---");
+            addressBook.PrintAll();
+            break;
+        case "5":
+            Console.WriteLine($"\nTotal contacts in all address books: {addressBookMain.GetTotalContactCount()}");
+            break;
+        case "6":
+            addressBook.SortContacts();
+            Console.WriteLine("\n--- Contacts sorted by name ---");
             addressBook.PrintAll();
             break;
         case "0":
